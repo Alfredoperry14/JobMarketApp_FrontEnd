@@ -9,13 +9,13 @@ struct JobHomeView: View {
         TabView {
             Tab("Home", systemImage: "house") {
                 JobListView(jobs: $jobs)
-
+                
             }
-
+            
             Tab("Stats", systemImage: "chart.line.text.clipboard") {
                 JobStats()
             }
-
+            
             Tab("Current Applications", systemImage: "tray.and.arrow.up.fill") {
                 JobApplicationsView()
             }
@@ -24,13 +24,25 @@ struct JobHomeView: View {
     }
     
     func fetchJobs() {
+        print("Fetching jobs...")
         JobAPIService.shared.fetchJobs { result in
-            switch result {
-            case .success(let jobs):
-                self.jobs = jobs
-                print("Jobs fetched: \(jobs.count)")
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let fetchedJobs):
+                    print("Jobs fetched: \(fetchedJobs.count)")
+                    
+                    if let firstJob = fetchedJobs.first {
+                        print("First Job: \(firstJob.title), \(firstJob.company), \(firstJob.location)")
+                    } else {
+                        print("⚠️ API returned an empty array!")
+                    }
+
+                    self.jobs = fetchedJobs
+
+                case .failure(let error):
+                    print("❌ Error fetching jobs: \(error.localizedDescription)")
+                    self.errorMessage = error.localizedDescription
+                }
             }
         }
     }

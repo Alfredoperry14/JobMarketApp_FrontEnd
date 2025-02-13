@@ -23,10 +23,29 @@ struct Job: Identifiable, Codable {
 
     }
     
+    static private func getJobPostDate(_ dateString: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.date(from: dateString)
+    }
+    
+    static func getDatePostedDisplayString(_ dateString: String) -> String? {
+        guard let jobDate = getJobPostDate(dateString) else { return nil }
+        
+        let calendar = Calendar.current
+        if calendar.isDateInToday(jobDate) {
+            return "Posted Today"
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd"
+        return "Posted: " + formatter.string(from: jobDate)
+    }
+    
     static func convertSalaryToCurrency(_ salary: Int?) -> String {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
-        return salary != nil ? currencyFormatter.string(from: NSNumber(value: salary!)) ?? "N/A" : "N/A"
+        return salary != nil ? currencyFormatter.string(from: NSNumber(value: salary!)) ?? "N/A" : "Not listed"
     }
     
 }
