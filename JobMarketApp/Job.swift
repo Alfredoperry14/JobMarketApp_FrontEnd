@@ -9,6 +9,7 @@ struct Job: Identifiable, Codable {
     var postDate: String
     var salary: Int?
     let url: URL
+    var appliedTo: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case id

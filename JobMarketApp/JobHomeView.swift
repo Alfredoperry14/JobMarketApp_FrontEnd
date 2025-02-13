@@ -6,15 +6,9 @@ struct JobHomeView: View {
     @State private var errorMessage: String?
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
         TabView {
             Tab("Home", systemImage: "house") {
-                JobListView()
+                JobListView(jobs: $jobs)
 
             }
 
@@ -26,12 +20,15 @@ struct JobHomeView: View {
                 JobApplicationsView()
             }
         }
+        .onAppear(perform: fetchJobs)
     }
+    
     func fetchJobs() {
         JobAPIService.shared.fetchJobs { result in
             switch result {
             case .success(let jobs):
                 self.jobs = jobs
+                print("Jobs fetched: \(jobs.count)")
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
             }
