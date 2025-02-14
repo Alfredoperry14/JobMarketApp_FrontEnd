@@ -71,23 +71,38 @@ struct JobListView: View {
             })
             //Start sorting based on active filters
         } else {
-            sortedJobs = filteredJobs.sorted(by: { (job1: Job, job2: Job) -> Bool in
-                let salary1: Int = job1.salary ?? Int.max
-                let salary2: Int = job2.salary ?? Int.max
-                if salary1 != salary2 {
-                    return salary1 < salary2
+            sortedJobs = filteredJobs.sorted { job1, job2 in
+                // First, prioritize jobs with a non-nil salary.
+                switch (job1.salary, job2.salary) {
+                case let (s1?, s2?):
+                    // Both have salaries: sort by salary in ascending order.
+                    if s1 != s2 {
+                        return s1 < s2
+                    }
+                case (nil, _):
+                    // job1 has no salary while job2 does: job2 comes first.
+                    return false
+                case (_, nil):
+                    // job1 has a salary and job2 doesn't: job1 comes first.
+                    return true
+                default:
+                    break
                 }
+                // Next, if filterLevel is active, sort by job level.
                 if !filterLevel.isEmpty {
-                    let level1: String = job1.level ?? ""
-                    let level2: String = job2.level ?? ""
+                    let level1 = job1.level ?? ""
+                    let level2 = job2.level ?? ""
                     if level1 != level2 {
                         return level1 < level2
                     }
                 }
+                // Finally, sort by post date (more recent first).
                 guard let date1 = JobFilterView.getJobPostDate(job1.postDate),
-                      let date2 = JobFilterView.getJobPostDate(job2.postDate) else { return false }
+                      let date2 = JobFilterView.getJobPostDate(job2.postDate) else {
+                    return false
+                }
                 return date1 > date2
-            })
+            }
         }
         
         // 4. Map sorted jobs back to their indices in the original jobs array.
