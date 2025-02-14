@@ -29,6 +29,8 @@ struct JobListView: View {
             salaryMax: filterSalaryMax,
             postDate: filterPostDate
         )
+        //Only show jobs that haven't been applied to
+        filteredJobs = filteredJobs.filter { !$0.appliedTo }
         
         // 2. If "Today's Postings" is active, filter further.
         if showTodaysPostings {
@@ -67,6 +69,7 @@ struct JobListView: View {
                     return date1 > date2
                 }
             })
+            //Start sorting based on active filters
         } else {
             sortedJobs = filteredJobs.sorted(by: { (job1: Job, job2: Job) -> Bool in
                 let salary1: Int = job1.salary ?? Int.max

@@ -11,6 +11,10 @@ import WebKit
 struct JobPageView: View {
     @Binding var job: Job
     @Environment(\.dismiss) var dismiss
+    
+    private var isButtonDisabled: Bool {
+        job.appliedTo
+    }
 
     var body: some View {
         ScrollView {
@@ -18,11 +22,26 @@ struct JobPageView: View {
                 Text(job.title)
                     .font(.title)
                     .fontWeight(.bold)
-
-                Text(job.company)
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-
+                HStack{
+                    Text(job.company)
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                    Button(action: {
+                        // Copy the URL to the clipboard
+                        withAnimation{
+                            UIPasteboard.general.string = job.url.absoluteString
+                        }
+                    }) {
+                        Image(systemName: "doc.on.doc")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20, height: 20)
+                            .padding()
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .foregroundStyle(.blue)
+                    .buttonStyle(PlainButtonStyle())
+                }
                 HStack {
                     Text("Location: \(job.location)")
                         .font(.subheadline)
@@ -31,7 +50,7 @@ struct JobPageView: View {
                         .font(.subheadline)
                         .bold()
                 }
-
+                
                 Divider()
 
                 // Inline web view displaying the job URL
@@ -52,11 +71,11 @@ struct JobPageView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.green)
-                        .cornerRadius(10) // Rounds corners
-                        .padding() // Adds spacing around the button
+                        .cornerRadius(10)
+                        .padding()
                 }
-                
-                
+                //Disable button if user applied
+                .disabled(isButtonDisabled)
             }
             .padding()
         }

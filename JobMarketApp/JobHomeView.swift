@@ -17,7 +17,7 @@ struct JobHomeView: View {
             }
             
             Tab("Current Applications", systemImage: "tray.and.arrow.up.fill") {
-                JobApplicationsView()
+                JobApplicationsView(jobs: $jobs)
             }
         }
         .onAppear(perform: fetchJobs)
