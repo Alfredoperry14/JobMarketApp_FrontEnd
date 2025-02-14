@@ -30,7 +30,7 @@ class JobAPIService {
                     completion(.success(jobs))
                 }
             } catch {
-                print("Decoding error:", error)  // <-- Debugging hint
+                print("Decoding error:", error)
                 completion(.failure(error))
             }
         }.resume()

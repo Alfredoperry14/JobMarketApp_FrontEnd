@@ -13,7 +13,7 @@ struct JobHomeView: View {
             }
             
             Tab("Stats", systemImage: "chart.line.text.clipboard") {
-                JobStats()
+                JobStats(jobs: jobs)
             }
             
             Tab("Current Applications", systemImage: "tray.and.arrow.up.fill") {
@@ -36,9 +36,9 @@ struct JobHomeView: View {
                     } else {
                         print("⚠️ API returned an empty array!")
                     }
-
-                    self.jobs = fetchedJobs
-
+                    withAnimation{
+                        self.jobs = fetchedJobs
+                    }
                 case .failure(let error):
                     print("❌ Error fetching jobs: \(error.localizedDescription)")
                     self.errorMessage = error.localizedDescription

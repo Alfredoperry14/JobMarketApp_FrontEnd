@@ -1,6 +1,6 @@
 import Foundation
 
-struct Job: Identifiable, Codable {
+struct Job: Identifiable, Codable, Equatable {
     var id: Int
     var title: String
     var level: String?
