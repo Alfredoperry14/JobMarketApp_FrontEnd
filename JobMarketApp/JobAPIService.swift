@@ -2,7 +2,7 @@ import Foundation
 
 class JobAPIService {
     static let shared = JobAPIService()
-    private let baseURL = "https://myfirstapi.website" // Replace with your EC2 public IP
+    private let baseURL = "https://myfirstapi.website" // Replace with your EC2 public IP or domain
 
     func fetchJobs(completion: @escaping (Result<[Job], Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/jobs") else {
@@ -11,7 +11,9 @@ class JobAPIService {
         }
         
         var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Accept")  // <-- Added this
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        // Add the token header
+        request.setValue(Config.apiToken, forHTTPHeaderField: "x_token")
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
