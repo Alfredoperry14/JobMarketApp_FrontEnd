@@ -5,6 +5,14 @@ import Charts
 struct JobStats: View {
     var jobs: [Job]
     
+    init(jobs: [Job]) {
+        self.jobs = jobs
+        // Set the current (selected) dot color.
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.blue
+        // Set the color for the unselected dots.
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)
+    }
+    
     // For level ordering, adjust to match sample job levels.
     // In our sample, we have "Entry Level", "Mid Level", and "Senior Level".
     private let levelOrder = ["Entry Level", "Mid Level", "Senior Level"]
@@ -71,18 +79,20 @@ struct JobStats: View {
                 
                 VStack {
                     LevelBarChart(levelCount: levelCount(jobs))
+                        .padding(.bottom, 20)
                 }
                 .tag(1)
                 
                 VStack {
                     LocationBarChart(locationCount: locationCount(jobs))
+                        .padding(.bottom, 20)
                 }
                 .tag(2)
             }
-            .padding(.bottom)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .tint(.blue)
-            
+            //.tint(.blue)
+            .padding(.bottom)
+
             Text("Total Jobs: \(jobCountFilter(jobs))")
                 .bold()
             Text("Average Salary: \(averageSalary(jobs))")
