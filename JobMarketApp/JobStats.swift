@@ -13,10 +13,6 @@ struct JobStats: View {
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.gray.withAlphaComponent(0.5)
     }
     
-    // For level ordering, adjust to match sample job levels.
-    // In our sample, we have "Entry Level", "Mid Level", and "Senior Level".
-    private let levelOrder = ["Entry Level", "Mid Level", "Senior Level"]
-    
     private func jobCountFilter(_ jobs: [Job]) -> Int {
         jobs.count
     }
@@ -33,14 +29,18 @@ struct JobStats: View {
         let dictionary = jobs.reduce(into: [String: Int]()) { result, job in
             result[job.level ?? "Unknown", default: 0] += 1
         }
+        let debug = dictionary.map { ($0.key, $0.value) }
+        print(debug)
+        return dictionary.map { ($0.key, $0.value) }
         
-        return dictionary
-            .map { ($0.key, $0.value) }
-            .sorted { lhs, rhs in
-                let lhsIndex = levelOrder.firstIndex(of: lhs.0) ?? levelOrder.count
-                let rhsIndex = levelOrder.firstIndex(of: rhs.0) ?? levelOrder.count
-                return lhsIndex < rhsIndex
-            }
+    }
+    private let allLevelOrder = ["Internship", "Entry level","Junior", "Mid level", "Senior level", "Expert/Leader", "N/A"]
+    
+    var computedLevelOrder: [String] {
+        // Filter the desired order to include only those levels that are present in your data with a count > 0.
+        allLevelOrder.filter { level in
+            levelCount(jobs).contains { $0.0 == level && $0.1 > 0 }
+        }
     }
     
     private func locationCount(_ jobs: [Job]) -> [(String, Int)] {
@@ -52,11 +52,7 @@ struct JobStats: View {
                 result[job.location, default: 0] += 1
             }
         }
-        
-        // Sort alphabetically.
-        return dictionary
-            .sorted { $0.key < $1.key }
-            .map { ($0.key, $0.value) }
+        return dictionary.map { ($0.key, $0.value) }
     }
     
     private var jobsPostedThisWeek: ([Job], Int) {
@@ -66,6 +62,9 @@ struct JobStats: View {
     
     var body: some View {
         VStack {
+            Text("Job Statistics")
+                .font(.title)
+                .bold()
             TabView {
                 VStack {
                     JobsPostedThisWeekTable(
@@ -78,7 +77,7 @@ struct JobStats: View {
                 .tag(0)
                 
                 VStack {
-                    LevelBarChart(levelCount: levelCount(jobs))
+                    LevelBarChart(levelCount: levelCount(jobs),levelOrder: computedLevelOrder)
                         .padding(.bottom, 20)
                 }
                 .tag(1)
@@ -103,6 +102,7 @@ struct JobStats: View {
 
 // MARK: - LocationBarChart (Bar Chart)
 struct LocationBarChart: View {
+    private let locationOrder = ["Local", "Hybrid", "Remote"]
     var locationCount: [(String, Int)]
     var body: some View {
         Chart {
@@ -114,24 +114,72 @@ struct LocationBarChart: View {
                 .foregroundStyle(by: .value("Job Location", location))
             }
         }
+        .chartXScale(domain: locationOrder)
         .padding()
+        
+        // Sort the levelCount array based on the levelOrder
+        let sortedLocationCount = locationCount.sorted { lhs, rhs in
+            guard let lhsIndex = locationOrder.firstIndex(of: lhs.0),
+                  let rhsIndex = locationOrder.firstIndex(of: rhs.0) else { return false }
+            return lhsIndex < rhsIndex
+        }
+        
+        VStack(alignment: .leading) {
+            ForEach(sortedLocationCount, id: \.0) { location, count in
+                HStack {
+                    Text("\(location):")
+                        .bold()
+                    Spacer()
+                    Text("\(count)")
+                }
+                .padding(.horizontal)
+            }
+        }
+        .padding(.top, 10)
+        .padding(.bottom, 20)
     }
 }
 
 // MARK: - LevelBarChart (Bar Chart)
 struct LevelBarChart: View {
     var levelCount: [(String, Int)]
+    var levelOrder: [String]
+
     var body: some View {
-        Chart {
-            ForEach(levelCount, id: \.0) { level, count in
-                BarMark(
-                    x: .value("Job Level", level),
-                    y: .value("Count", count)
-                )
-                .foregroundStyle(by: .value("Job Level", level))
+        VStack {
+            Chart {
+                ForEach(levelCount, id: \.0) { level, count in
+                    BarMark(
+                        x: .value("Job Level", level),
+                        y: .value("Count", count)
+                    )
+                    .foregroundStyle(by: .value("Job Level", level))
+                }
             }
+            .chartXScale(domain: levelOrder)
+            .padding()
+            
+            // Sort the levelCount array based on the levelOrder
+            let sortedLevelCount = levelCount.sorted { lhs, rhs in
+                guard let lhsIndex = levelOrder.firstIndex(of: lhs.0),
+                      let rhsIndex = levelOrder.firstIndex(of: rhs.0) else { return false }
+                return lhsIndex < rhsIndex
+            }
+            
+            VStack(alignment: .leading) {
+                ForEach(sortedLevelCount, id: \.0) { level, count in
+                    HStack {
+                        Text("\(level):")
+                            .bold()
+                        Spacer()
+                        Text("\(count)")
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .padding(.top, 10)
+            .padding(.bottom, 20)
         }
-        .padding()
     }
 }
 

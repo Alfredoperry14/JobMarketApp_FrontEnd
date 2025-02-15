@@ -24,7 +24,8 @@ struct JobFilterView: View {
     @Environment(\.dismiss) var dismiss
     
     // Local constants for Picker options.
-    let levels = ["Internship", "Junior", "Mid", "Senior", "Expert"]
+    let levels = ["Internship", "Entry Level","Junior", "Mid level", "Senior level", "Expert/Leader", "N/A"]
+
     let locations = ["Local", "Hybrid", "Remote"]
     let postDateOptions = ["1 Day", "7 Days", "14 Days", "30 Days"]
     
@@ -60,7 +61,7 @@ struct JobFilterView: View {
                             Text(level).tag(level)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(.menu)
                 }
                 
                 // Salary Range Section
