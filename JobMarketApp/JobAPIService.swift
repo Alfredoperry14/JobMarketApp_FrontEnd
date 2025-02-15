@@ -13,7 +13,7 @@ class JobAPIService {
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         // Add the token header
-        request.setValue(Config.apiToken, forHTTPHeaderField: "x_token")
+        request.setValue(Config.apiToken, forHTTPHeaderField: "x-token")
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
