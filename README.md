@@ -7,6 +7,7 @@ This **Job Market App** is a personal project that scrapes job postings from [Bu
 - View **job statistics** (salary trends, job levels, locations) using **Swift Charts**.
 
 This project was built as a learning experience to explore **iOS development with SwiftUI**, **backend development with FastAPI**, **web scraping**, and **AWS server deployment**.
+Pictures and Gifs at End.
 
 ---
 ## Features
@@ -71,3 +72,14 @@ The backend is built using **FastAPI + PostgreSQL** and deployed on an **AWS EC2
 - Hopefully Move to NYC one day and experience the tech scene firsthand, and just everything the city has to offer.
 
 This was a **great learning project**, and I'm looking forward to **building more!**
+
+![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 53 42](https://github.com/user-attachments/assets/2d98bb97-e8ea-409f-8a31-8e4879951b8e)
+
+![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 53 42](https://github.com/user-attachments/assets/b7494de3-ad10-45dc-aee2-16827be33b8d)
+
+![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 55 00](https://github.com/user-attachments/assets/176cdadd-7050-49cd-8744-3b133a6c0195)
+
+![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 55 10](https://github.com/user-attachments/assets/bcb66299-ee92-4f7f-b125-334556c7027a)
+
+![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/88d679ef-2743-4200-b318-169ce0f44c37)
+
