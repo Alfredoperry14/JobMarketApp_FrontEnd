@@ -73,13 +73,26 @@ The backend is built using **FastAPI + PostgreSQL** and deployed on an **AWS EC2
 
 This was a **great learning project**, and I'm looking forward to **building more!**
 
-![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 53 42](https://github.com/user-attachments/assets/2d98bb97-e8ea-409f-8a31-8e4879951b8e)
 
-![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 53 42](https://github.com/user-attachments/assets/b7494de3-ad10-45dc-aee2-16827be33b8d)
 
-![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 55 00](https://github.com/user-attachments/assets/176cdadd-7050-49cd-8744-3b133a6c0195)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4ce3bc9a-567a-4f14-a485-1df17a67de41" width="300">
+  <img src="https://github.com/user-attachments/assets/999744e9-5eb9-4578-aa0e-dbcc37759dda" width="300">
+  <img src="https://github.com/user-attachments/assets/54d71679-8890-4076-b77a-69a6e2d780bc" width="300">
+  <img src =" https://github.com/user-attachments/assets/5cf7e6b5-c56d-4aac-91e7-03905a64f8ba" width = "300">
+  <img src = "https://github.com/user-attachments/assets/6a6632b9-ba1f-4770-8360-3ecc147455a8" width = "300">
+  <img src = "https://github.com/user-attachments/assets/85754cd5-0416-4449-a5d2-280687ea2b0b" width = "300">
 
-![Simulator Screenshot - iPhone 16 - 2025-02-14 at 17 55 10](https://github.com/user-attachments/assets/bcb66299-ee92-4f7f-b125-334556c7027a)
+</p>
 
-![ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/88d679ef-2743-4200-b318-169ce0f44c37)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5d8f1791-121b-4573-b568-9bb02a5392d1" width="300">
+  <a href="https://github.com/user-attachments/assets/fc35d173-ab03-4423-b18d-61ed82427d64">
+    <img src="https://github.com/user-attachments/assets/5d8f1791-121b-4573-b568-9bb02a5392d1" width="300">
+  </a>
+</p>
+(Laggy because the video had to be compressed)
+
+
+https://github.com/user-attachments/assets/8ab0e690-fd6b-4117-b675-1c9b595e627f
 
