@@ -69,7 +69,6 @@ The backend is built using **FastAPI + PostgreSQL** and deployed on an **AWS EC2
 - **Swift Charts** was an **interesting first-time experience** and is worth using again.
 - **Seeing WebKit in action** made the project feel **polished and practical**.
 - **Learning AWS, Docker, and automation** felt like a big step forward in backend development.
-- Hopefully Move to NYC one day and experience the tech scene firsthand, and just everything the city has to offer.
 
 This was a **great learning project**, and I'm looking forward to **building more!**
 
